@@ -36,7 +36,7 @@ class App extends Component {
           <div styleName="text right">
             <ReactDynamicFont content={this.state.content} />
           </div>
-          <p styleName="tag">with sooth animate</p>
+          <p styleName="tag">with smooth animate</p>
           <div styleName="text left">
             <ReactDynamicFont smooth content={this.state.content} />
           </div>
