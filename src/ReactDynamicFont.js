@@ -78,8 +78,13 @@ export default class ReactDynamicFont extends Component {
     if(this.state.scale === 1) {
       scaleStyle = undefined;
     } else {
+      let transformValue = `scale(${this.state.scale}, ${this.state.scale})`;
       scaleStyle = {
-        transform: `scale(${this.state.scale}, ${this.state.scale})`,
+        msTransform: transformValue,
+        WebkitTransform: transformValue,
+        OTransform: transformValue,
+        MozTransform: transformValue,
+        transform: transformValue,
       };
     }
     const finalStyle = Object.assign(
