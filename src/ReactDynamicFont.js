@@ -37,6 +37,12 @@ export default class ReactDynamicFont extends Component {
     };
   }
 
+  componentDidMount() {
+    if(this.props.content && this.props.content.length) {
+      this.fixWidth();
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if(prevProps.content !== this.props.content && this.props.content.length) {
       this.fixWidth();

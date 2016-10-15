@@ -1,6 +1,6 @@
 {
   "name": "react-dynamic-font",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "make your text does not wrap and dynamically adjust the font size",
   "main": "lib/index.js",
   "scripts": {
