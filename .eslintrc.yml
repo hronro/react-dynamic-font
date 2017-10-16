@@ -1,0 +1,20 @@
+env:
+  browser: true
+  es6: true
+  node: true
+
+extends: airbnb
+
+parser: babel-eslint
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  sourceType: module
+
+rules:
+  react/jsx-filename-extension:
+    - error
+    - extensions:
+      - .js
+      - .jsx

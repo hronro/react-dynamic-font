@@ -1,4 +1,7 @@
+// eslint-disable-next-line import/no-unresolved, import/extensions
 import React, { Component, PropTypes } from 'react';
+
+import getNodeWidth from './utils';
 
 const styles = {
   main: {
@@ -15,14 +18,14 @@ const styles = {
     WebkitTransition: '-webkit-transform 400ms',
     OTransition: '-o-transform 400ms',
     MozTransition: '-moz-transform 400ms',
-    transition: 'transform 400ms'
+    transition: 'transform 400ms',
   },
 };
 
 export default class ReactDynamicFont extends Component {
   static propTypes = {
-    content: PropTypes.string.isRequired,
-    smooth: PropTypes.bool.isRequired,
+    content: PropTypes.string,
+    smooth: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -38,47 +41,37 @@ export default class ReactDynamicFont extends Component {
   }
 
   componentDidMount() {
-    if(this.props.content && this.props.content.length) {
+    if (this.props.content && this.props.content.length) {
       this.fixWidth();
     }
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.content !== this.props.content && this.props.content.length) {
+    if (prevProps.content !== this.props.content && this.props.content.length) {
       this.fixWidth();
     }
   }
 
-  getMaxWidth = () => this.getNodeWidth(this.node.parentNode)
+  getMaxWidth = () => getNodeWidth(this.node.parentNode)
 
-  getCurrentWidth = () => this.getNodeWidth(this.node)
-
-  getNodeWidth(node) {
-    const nodeStyles = window.getComputedStyle(node);
-    const width = node.offsetWidth;
-    const borderLeftWidth = parseFloat(nodeStyles.borderLeftWidth);
-    const borderRightWidth = parseFloat(nodeStyles.borderRightWidth);
-    const paddingLeft = parseFloat(nodeStyles.paddingLeft);
-    const paddingRight = parseFloat(nodeStyles.paddingRight);
-    return width - borderRightWidth - borderLeftWidth - paddingLeft - paddingRight;
-  }
+  getCurrentWidth = () => getNodeWidth(this.node)
 
   fixWidth = () => {
     const maxWidth = this.getMaxWidth();
     const currentWidth = this.getCurrentWidth();
-    if(currentWidth > maxWidth) {
-      this.setState({scale: maxWidth / currentWidth});
+    if (currentWidth > maxWidth) {
+      this.setState({ scale: maxWidth / currentWidth });
     } else {
-      this.setState({scale: 1});
+      this.setState({ scale: 1 });
     }
   }
 
   render() {
     let scaleStyle;
-    if(this.state.scale === 1) {
+    if (this.state.scale === 1) {
       scaleStyle = undefined;
     } else {
-      let transformValue = `scale(${this.state.scale}, ${this.state.scale})`;
+      const transformValue = `scale(${this.state.scale}, ${this.state.scale})`;
       scaleStyle = {
         msTransform: transformValue,
         WebkitTransform: transformValue,
@@ -91,12 +84,12 @@ export default class ReactDynamicFont extends Component {
       {},
       styles.main,
       this.props.smooth ? styles.animate : undefined,
-      scaleStyle
+      scaleStyle,
     );
     return (
       <span
         style={finalStyle}
-        ref={span => this.node = span}
+        ref={(span) => { this.node = span; }}
       >
         { this.props.content }
       </span>

@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies, import/no-unresolved, import/extensions */
 import React, { Component } from 'react';
 import CSSModules from 'react-css-modules';
+/* eslint-enable import/no-extraneous-dependencies, import/no-unresolved, import/extensions */
 
 import ReactDynamicFont from '../../src';
 
@@ -13,7 +15,7 @@ class App extends Component {
     };
   }
 
-  handleInput = event => {
+  handleInput = (event) => {
     this.setState({
       content: event.target.value,
     });
@@ -54,4 +56,4 @@ class App extends Component {
   }
 }
 
-export default CSSModules(App, styles, {allowMultiple: true});
+export default CSSModules(App, styles, { allowMultiple: true });
