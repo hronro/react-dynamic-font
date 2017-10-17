@@ -20,3 +20,7 @@ typings/
 lib/
 es/
 umd/
+
+# babel external helpers
+#
+demo/src/external-helpers.js

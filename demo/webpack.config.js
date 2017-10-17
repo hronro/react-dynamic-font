@@ -1,5 +1,12 @@
 const path = require('path');
+const { writeFileSync } = require('fs');
 const webpack = require('webpack');
+const babel = require('babel-core');
+
+writeFileSync(
+  path.resolve(__dirname, 'src/external-helpers.js'),
+  babel.buildExternalHelpers(),
+);
 
 module.exports = {
   devtool: 'eval',
@@ -8,7 +15,8 @@ module.exports = {
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
     'babel-polyfill',
-    './demo/src/index.js',
+    path.resolve(__dirname, 'src/external-helpers.js'),
+    path.resolve(__dirname, 'src/index.js'),
   ],
   output: {
     path: path.join(__dirname, 'static'),
