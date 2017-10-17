@@ -5,7 +5,7 @@ import packageInfo from './package.json';
 
 const baseConfig = {
   input: 'src/index.js',
-  external: ['react', 'react-dom'],
+  external: ['react', 'react-dom', 'prop-types'],
   plugins: [
     babel({
       exclude: 'node_modules/**',
@@ -32,6 +32,7 @@ const umdConfig = Object.assign({}, baseConfig, {
   globals: {
     react: 'React',
     'react-dom': 'ReactDOM',
+    'prop-types': 'PropTypes',
   },
   output: {
     file: packageInfo.umd,
