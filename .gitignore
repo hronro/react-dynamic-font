@@ -12,5 +12,11 @@ static/
 
 # VS Code
 #
-.vscode
-typings
+.vscode/
+typings/
+
+# Compiled files
+#
+lib/
+es/
+umd/

@@ -1,16 +1,24 @@
 {
   "name": "react-dynamic-font",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "make your text does not wrap and dynamically adjust the font size",
   "main": "lib/index.js",
+  "module": "es/index.js",
+  "umd": "umd/react-dynamic-font.js",
+  "files": [
+    "lib",
+    "es",
+    "umd"
+  ],
   "scripts": {
     "start": "node ./demo/server.js",
-    "babel-build": "babel ./src --out-dir ./lib",
     "lint": "eslint src demo",
-    "clean": "rimraf lib",
-    "build": "run-s clean babel-build",
+    "clean": "rimraf lib es umd",
+    "build:rollup": "rollup -c",
+    "build": "run-s lint clean build:rollup",
     "precommit": "run-s lint",
-    "prepush": "run-s lint"
+    "prepush": "run-s lint",
+    "prepublish": "run-s build"
   },
   "repository": {
     "type": "git",
@@ -34,10 +42,10 @@
     "react-dom": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.1",
     "babel-loader": "^7.1.2",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
@@ -59,6 +67,9 @@
     "react-dom": "^15.6.2",
     "react-hot-loader": "^3.1.1",
     "rimraf": "^2.6.2",
+    "rollup": "^0.50.0",
+    "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-uglify": "^2.0.1",
     "style-loader": "^0.19.0",
     "webpack": "^3.7.1",
     "webpack-dev-server": "^2.9.2"
