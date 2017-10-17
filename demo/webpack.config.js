@@ -22,13 +22,26 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: ['babel'],
+        exclude: [path.resolve(__dirname, '../node_modules')],
+        loader: 'babel-loader',
       },
       {
         test: /\.css$/,
-        loaders: [
-          'style?sourceMap',
-          'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+        use: [
+          {
+            loader: 'style-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
+            },
+          },
         ],
       },
     ],
