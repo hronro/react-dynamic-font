@@ -5,6 +5,8 @@ Sometimes we want some text to have a fixed width, and it will automatically red
 
 ![Demo](https://raw.githubusercontent.com/foisonocean/react-dynamic-font/media/media/001.gif)
 
+### [A simple live demo](https://codepen.io/hronro/full/wrVvKK/)
+
 ## Installation
 
 ```
