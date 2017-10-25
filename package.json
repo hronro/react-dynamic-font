@@ -18,7 +18,7 @@
     "build": "run-s lint clean build:rollup",
     "precommit": "run-s lint",
     "prepush": "run-s lint",
-    "prepublish": "run-s build"
+    "prepublishOnly": "run-s build"
   },
   "repository": {
     "type": "git",
