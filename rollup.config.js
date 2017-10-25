@@ -39,7 +39,12 @@ const umdConfig = Object.assign({}, baseConfig, {
     format: 'umd',
   },
   plugins: [
-    ...baseConfig.plugins,
+    babel({
+      exclude: 'node_modules/**',
+      plugins: [['transform-react-remove-prop-types', {
+        removeImport: true,
+      }]],
+    }),
     uglify(),
   ],
 });
