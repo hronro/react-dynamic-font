@@ -35,8 +35,8 @@ const umdConfig = Object.assign({}, baseConfig, {
     'prop-types': 'PropTypes',
   },
   output: {
-    file: packageInfo.umd,
-    format: 'umd',
+    file: packageInfo.nonmodule,
+    format: 'iife',
   },
   plugins: [
     babel({

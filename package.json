@@ -4,16 +4,16 @@
   "description": "make your text does not wrap and dynamically adjust the font size",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "umd": "umd/react-dynamic-font.js",
+  "nonmodule": "browser/react-dynamic-font.min.js",
   "files": [
     "lib",
     "es",
-    "umd"
+    "browser"
   ],
   "scripts": {
     "start": "node ./demo/server.js",
     "lint": "eslint src demo",
-    "clean": "rimraf lib es umd",
+    "clean": "rimraf lib es browser",
     "build:rollup": "rollup -c",
     "build": "run-s lint clean build:rollup",
     "precommit": "run-s lint",

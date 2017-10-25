@@ -19,7 +19,7 @@ typings/
 #
 lib/
 es/
-umd/
+browser/
 
 # babel external helpers
 #
