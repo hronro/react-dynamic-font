@@ -19,6 +19,8 @@ or
 yarn add react-dynamic-font
 ```
 
+*For React v0.14 and below, try `yarn add react-dynamic-font@^0.0.6`*
+
 ## Usage
 `ReactDynamicFont` use the width of its parent element as the fixed width, and remember to add the css style `overflow: hidden` to its parent element.
 
