@@ -34,12 +34,12 @@ export default class ReactDynamicFont extends Component {
     smooth: false,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      scale: 1,
-    };
-  }
+  static retryDelayMillisecond = 300
+  static maxRetryTimes = 5
+
+  state = {
+    scale: 1,
+  };
 
   componentDidMount() {
     if (this.props.content && this.props.content.length) {
@@ -57,10 +57,27 @@ export default class ReactDynamicFont extends Component {
 
   getCurrentWidth = () => getNodeWidth(this.node)
 
+  setRetryTimmer() {
+    if (this.retryTimmer != null) {
+      clearTimeout(this.retryTimmer);
+      this.retryTimmer = null;
+    }
+    if (this.timesOfRetryGetWidth <= ReactDynamicFont.maxRetryTimes) {
+      this.retryTimmer = setTimeout(this.fixWidth, ReactDynamicFont.retryDelayMillisecond);
+    }
+  }
+
+  retryTimmer = null;
+
+  timesOfRetryGetWidth = 0;
+
   fixWidth = () => {
     const maxWidth = this.getMaxWidth();
     const currentWidth = this.getCurrentWidth();
-    if (currentWidth > maxWidth) {
+
+    if (currentWidth <= 0) {
+      this.setRetryTimmer();
+    } else if (currentWidth > maxWidth) {
       this.setState({ scale: maxWidth / currentWidth });
     } else {
       this.setState({ scale: 1 });
