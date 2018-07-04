@@ -6,6 +6,7 @@
 #
 node_modules/
 npm-debug.log
+yarn-error.log
 
 # BUCK
 static/
@@ -20,7 +21,11 @@ typings/
 lib/
 es/
 browser/
+examples/src/lib
+/dist
+/styles.css
 
-# babel external helpers
+# Cache
 #
-demo/src/external-helpers.js
+/.cache
+/.typescript-compile-cache
