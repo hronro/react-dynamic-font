@@ -45,11 +45,7 @@ export class ReactDynamicFont extends React.Component<
     scale: 1,
   };
 
-  node?: HTMLSpanElement | null;
-
-  bindNode = (node: HTMLSpanElement | null) => {
-    this.node = node;
-  };
+  spanRef = React.createRef<HTMLSpanElement>();
 
   componentDidMount() {
     if (this.props.content && this.props.content.length) {
@@ -63,9 +59,9 @@ export class ReactDynamicFont extends React.Component<
     }
   }
 
-  getMaxWidth = () => getNodeWidth(this.node!.parentElement!);
+  getMaxWidth = () => getNodeWidth(this.spanRef.current!.parentElement!);
 
-  getCurrentWidth = () => getNodeWidth(this.node!);
+  getCurrentWidth = () => getNodeWidth(this.spanRef.current!);
 
   setRetryTimmer() {
     if (this.retryTimmer != null) {
@@ -73,7 +69,7 @@ export class ReactDynamicFont extends React.Component<
       this.retryTimmer = null;
     }
     if (this.timesOfRetryGetWidth <= ReactDynamicFont.maxRetryTimes) {
-      this.retryTimmer = setTimeout(this.fixWidth, ReactDynamicFont.retryDelayMillisecond);
+      this.retryTimmer = window.setTimeout(this.fixWidth, ReactDynamicFont.retryDelayMillisecond);
     }
   }
 
@@ -87,10 +83,13 @@ export class ReactDynamicFont extends React.Component<
 
     if (currentWidth <= 0) {
       this.setRetryTimmer();
-    } else if (currentWidth > maxWidth) {
-      this.setState({ scale: maxWidth / currentWidth });
     } else {
-      this.setState({ scale: 1 });
+      this.timesOfRetryGetWidth = 0;
+      if (currentWidth > maxWidth) {
+        this.setState({ scale: maxWidth / currentWidth });
+      } else {
+        this.setState({ scale: 1 });
+      }
     }
   };
 
@@ -114,7 +113,7 @@ export class ReactDynamicFont extends React.Component<
       ...scaleStyle,
     };
     return (
-      <span style={finalStyle} ref={this.bindNode}>
+      <span style={finalStyle} ref={this.spanRef}>
         {this.props.content}
       </span>
     );
