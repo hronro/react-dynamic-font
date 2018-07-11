@@ -20,6 +20,7 @@ typings/
 #
 lib/
 es/
+types/
 browser/
 examples/src/lib
 /dist

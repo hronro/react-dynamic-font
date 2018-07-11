@@ -8,8 +8,12 @@
   "files": [
     "lib",
     "es",
-    "browser"
+    "browser",
+    "types",
+    "styles.css",
+    "README.md"
   ],
+  "types": "./types/index.d.ts",
   "scripts": {
     "start": "run-s clean initDevBuildBeforeWatch dev",
     "dev": "run-p watch example",
@@ -60,6 +64,7 @@
     "react-dom": "^15.0.0 || ^16.0.0"
   },
   "devDependencies": {
+    "@ampproject/rollup-plugin-closure-compiler": "^0.4.3",
     "@types/enzyme": "^3.1.11",
     "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/jest": "^23.1.4",
@@ -91,7 +96,6 @@
     "react-dom": "^16.4.1",
     "rimraf": "^2.6.2",
     "rollup": "^0.62.0",
-    "rollup-plugin-closure-compiler-js": "^1.0.6",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-postcss": "^1.6.2",
     "rollup-plugin-replace": "^2.0.0",

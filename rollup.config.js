@@ -4,7 +4,8 @@ import replace from 'rollup-plugin-replace';
 import NodeResolve from 'rollup-plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import postcss from 'rollup-plugin-postcss';
-import closure from 'rollup-plugin-closure-compiler-js';
+// eslint-disable-next-line import/no-unresolved
+import closure from '@ampproject/rollup-plugin-closure-compiler';
 
 import camelCase from 'camelcase';
 import autoprefixer from 'autoprefixer';
@@ -42,6 +43,29 @@ const baseConfig = {
     typescript({
       cacheRoot: '.typescript-compile-cache',
       clean: isProd,
+      useTsconfigDeclarationDir: isProd,
+      tsconfigOverride: Object.assign(
+        {},
+        isProd
+          ? {
+              compilerOptions: {
+                declaration: true,
+                declarationDir: './types',
+              },
+            }
+          : {
+              compilerOptions: { declaration: true },
+            },
+        /**
+         * only exclude test code in rollup config,
+         * rather than exclude them in tsconfig.json,
+         * because when run tests,
+         * they still need the compiler info in tsconfig.json
+         */
+        {
+          exclude: ['node_modules', 'src/__tests__/**'],
+        },
+      ),
     }),
     postcss({
       extensions: ['.css', '.styl', '.stylus'],
@@ -91,12 +115,7 @@ const browserConfig = Object.assign({}, baseConfig, {
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    closure({
-      compilationLevel: 'SIMPLE',
-      languageIn: 'ECMASCRIPT5_STRICT',
-      languageOut: 'ECMASCRIPT5_STRICT',
-      rewritePolyfills: false,
-    }),
+    closure(),
   ],
 });
 
