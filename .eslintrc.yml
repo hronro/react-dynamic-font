@@ -2,19 +2,44 @@ env:
   browser: true
   es6: true
   node: true
-
-extends: airbnb
-
-parser: babel-eslint
-
+parser: typescript-eslint-parser
 parserOptions:
   ecmaFeatures:
     jsx: true
   sourceType: module
-
+extends:
+  - airbnb-base
+  - plugin:promise/recommended
+  - plugin:react/recommended
+  - plugin:jsx-a11y/recommended
+  - prettier
+plugins:
+  - promise
+  - react
+  - jsx-a11y
+  - typescript
 rules:
-  react/jsx-filename-extension:
+  no-unused-vars: 0
+  no-undef: 0
+  import/prefer-default-export: false
+  import/extensions:
     - error
-    - extensions:
-      - .js
-      - .jsx
+    - aways
+    -
+      js: never
+      ts: never
+      tsx: never
+  react/prop-types: 0
+settings:
+  import/resolver:
+    node:
+      extensions:
+        - .js
+        - .json
+        - .ts
+        - .tsx
+      moduleDirectory:
+        - node_modules
+        - src
+  import/parsers:
+    typescript-eslint-parser: [ .ts, .tsx ]

@@ -1,16 +1,4 @@
 {
-  "plugins": [
-    "transform-class-properties",
-    "transform-object-rest-spread",
-    "external-helpers"
-  ],
-  "presets": [
-    "react",
-    ["latest", {
-      "es2015": {
-        "loose": true,
-        "modules": false
-      }
-    }]
-  ]
+  "presets": ["react"],
+  "plugins": ["transform-class-properties"]
 }

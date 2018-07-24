@@ -1,10 +1,11 @@
-// eslint-disable-next-line import/no-unresolved, import/extensions
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-import getNodeWidth from './utils';
+import { getNodeWidth } from './utils';
 
-const styles = {
+const styles: {
+  main: React.CSSProperties;
+  animate: React.CSSProperties;
+} = {
   main: {
     display: 'inline-block',
     whiteSpace: 'nowrap',
@@ -15,7 +16,7 @@ const styles = {
     transformOrigin: '0 50%',
   },
   animate: {
-    msTransition: '-ms-transform 400ms',
+    // msTransition: '-ms-transform 400ms',
     WebkitTransition: '-webkit-transform 400ms',
     OTransition: '-o-transform 400ms',
     MozTransition: '-moz-transform 400ms',
@@ -23,23 +24,28 @@ const styles = {
   },
 };
 
-export default class ReactDynamicFont extends Component {
-  static propTypes = {
-    content: PropTypes.string,
-    smooth: PropTypes.bool,
-  }
+export interface ReactDynamicFontProps {
+  content?: string;
+  smooth?: boolean;
+}
 
-  static defaultProps = {
-    content: '',
-    smooth: false,
-  }
+interface ReactDynamicFontState {
+  scale: number;
+}
 
-  static retryDelayMillisecond = 300
-  static maxRetryTimes = 5
+export class ReactDynamicFont extends React.Component<
+  ReactDynamicFontProps,
+  ReactDynamicFontState
+> {
+  static retryDelayMillisecond = 300;
 
-  state = {
+  static maxRetryTimes = 5;
+
+  state: ReactDynamicFontState = {
     scale: 1,
   };
+
+  spanRef = React.createRef<HTMLSpanElement>();
 
   componentDidMount() {
     if (this.props.content && this.props.content.length) {
@@ -47,15 +53,15 @@ export default class ReactDynamicFont extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.content !== this.props.content && this.props.content.length) {
+  componentDidUpdate(prevProps: ReactDynamicFontProps) {
+    if (prevProps.content !== this.props.content && (this.props.content || '').length) {
       this.fixWidth();
     }
   }
 
-  getMaxWidth = () => getNodeWidth(this.node.parentNode)
+  getMaxWidth = () => getNodeWidth(this.spanRef.current!.parentElement!);
 
-  getCurrentWidth = () => getNodeWidth(this.node)
+  getCurrentWidth = () => getNodeWidth(this.spanRef.current!);
 
   setRetryTimmer() {
     if (this.retryTimmer != null) {
@@ -63,11 +69,11 @@ export default class ReactDynamicFont extends Component {
       this.retryTimmer = null;
     }
     if (this.timesOfRetryGetWidth <= ReactDynamicFont.maxRetryTimes) {
-      this.retryTimmer = setTimeout(this.fixWidth, ReactDynamicFont.retryDelayMillisecond);
+      this.retryTimmer = window.setTimeout(this.fixWidth, ReactDynamicFont.retryDelayMillisecond);
     }
   }
 
-  retryTimmer = null;
+  retryTimmer: number | null = null;
 
   timesOfRetryGetWidth = 0;
 
@@ -77,12 +83,15 @@ export default class ReactDynamicFont extends Component {
 
     if (currentWidth <= 0) {
       this.setRetryTimmer();
-    } else if (currentWidth > maxWidth) {
-      this.setState({ scale: maxWidth / currentWidth });
     } else {
-      this.setState({ scale: 1 });
+      this.timesOfRetryGetWidth = 0;
+      if (currentWidth > maxWidth) {
+        this.setState({ scale: maxWidth / currentWidth });
+      } else {
+        this.setState({ scale: 1 });
+      }
     }
-  }
+  };
 
   render() {
     let scaleStyle;
@@ -98,18 +107,14 @@ export default class ReactDynamicFont extends Component {
         transform: transformValue,
       };
     }
-    const finalStyle = Object.assign(
-      {},
-      styles.main,
-      this.props.smooth ? styles.animate : undefined,
-      scaleStyle,
-    );
+    const finalStyle = {
+      ...styles.main,
+      ...((this.props.smooth != null ? this.props.smooth : false) ? styles.animate : undefined),
+      ...scaleStyle,
+    };
     return (
-      <span
-        style={finalStyle}
-        ref={(span) => { this.node = span; }}
-      >
-        { this.props.content }
+      <span style={finalStyle} ref={this.spanRef}>
+        {this.props.content}
       </span>
     );
   }
