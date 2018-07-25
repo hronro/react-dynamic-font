@@ -22,7 +22,7 @@
     "example": "parcel examples/public/index.html",
     "initDevBuildBeforeWatch": "rollup -c rollup.config.js",
     "watch": "rollup -w -c rollup.config.js",
-    "clean": "rimraf examples/src/lib es lib browser styles.css",
+    "clean": "rimraf examples/src/lib es lib browser types styles.css",
     "test": "jest --watch",
     "test:all": "jest",
     "lint": "run-p lint:ts",
