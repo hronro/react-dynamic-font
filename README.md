@@ -20,7 +20,7 @@ or
 yarn add react-dynamic-font
 ```
 
-_For React v0.14 and below, try `yarn add react-dynamic-font@^0.0.6`_
+_This package require react v16.3 or higher, if you want to use at lower react version(v15.x - v16.2.x), try `yarn add react-dynamic-font@^1.0.0`, for React v0.14 and below, try `yarn add react-dynamic-font@^0.0.6`_
 
 ## Usage
 
