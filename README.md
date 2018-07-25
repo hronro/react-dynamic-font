@@ -1,4 +1,5 @@
 # react-dynamic-font
+
 ### This is a react component which made your text does not wrap and dynamically adjust the font size
 
 Sometimes we want some text to have a fixed width, and it will automatically reducing the font size when the number of characters is too large, so that the text is always in one line without wrapping. This is why I created this component.
@@ -19,9 +20,10 @@ or
 yarn add react-dynamic-font
 ```
 
-*For React v0.14 and below, try `yarn add react-dynamic-font@^0.0.6`*
+_For React v0.14 and below, try `yarn add react-dynamic-font@^0.0.6`_
 
 ## Usage
+
 `ReactDynamicFont` use the width of its parent element as the fixed width, and remember to add the css style `overflow: hidden` to its parent element.
 
 ```jsx
@@ -45,7 +47,7 @@ class Demo extends Component {
 }
 ```
 
-If you want to add smooth animate while font-size changing, add the `smooth` props.
+If you want to add smooth animation while font size changing, add the `smooth` props.
 
 ```jsx
 <DynamicFont smooth content={/* Your text here */} />
