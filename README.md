@@ -1,4 +1,4 @@
-# react-dynamic-font
+# react-dynamic-font [![Build Status](https://travis-ci.org/foisonocean/react-dynamic-font.svg?branch=master)](https://travis-ci.org/foisonocean/react-dynamic-font)
 
 ### This is a react component which made your text does not wrap and dynamically adjust the font size
 
