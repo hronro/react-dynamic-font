@@ -39,7 +39,7 @@ class Demo extends Component {
       overflow: 'hidden',
     };
     return (
-      <div style={{style}}>
+      <div style={style}>
         <DynamicFont content={/* Your text here */} />
       </div>
     );
